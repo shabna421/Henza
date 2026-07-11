@@ -1,4 +1,3 @@
-alert("Script Loaded");
 // ======================
 // Auto Slideshow
 // ======================
@@ -7,41 +6,27 @@ let slides = document.querySelectorAll(".slide");
 let current = 0;
 
 function showSlide() {
-
     slides[current].classList.remove("active");
-
-    current++;
-
-    if(current >= slides.length){
-        current = 0;
-    }
-
+    current = (current + 1) % slides.length;
     slides[current].classList.add("active");
-
 }
 
-setInterval(showSlide,3000);
-
+setInterval(showSlide, 3000);
 
 // ======================
-// Unlimited Gallery
+// Gallery
 // ======================
 
 const gallery = document.getElementById("galleryGrid");
+const totalPhotos = 10;
 
-const totalPhotos = 10; // Change this number anytime
-
-for(let i=1;i<=totalPhotos;i++){
-
+for (let i = 1; i <= totalPhotos; i++) {
     const img = document.createElement("img");
-
     img.src = `photo${i}.jpg`;
-
     img.alt = `Photo ${i}`;
-
     gallery.appendChild(img);
+}
 
-    }
 // ======================
 // Lightbox
 // ======================
@@ -50,23 +35,24 @@ const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const closeBtn = document.querySelector(".close");
 
-document.addEventListener("click", function(e){
+// Wait until gallery images are created
+setTimeout(() => {
+    const images = document.querySelectorAll("#galleryGrid img, .card img, .slide");
 
-    if(e.target.tagName === "IMG" &&
-       !e.target.classList.contains("logo")){
+    images.forEach(img => {
+        img.addEventListener("click", () => {
+            lightbox.style.display = "flex";
+            lightboxImg.src = img.src;
+        });
+    });
+}, 100);
 
-        lightbox.style.display = "flex";
-        lightboxImg.src = e.target.src;
-    }
-
+closeBtn.addEventListener("click", () => {
+    lightbox.style.display = "none";
 });
 
-closeBtn.onclick = function(){
-    lightbox.style.display = "none";
-};
-
-lightbox.onclick = function(e){
-    if(e.target === lightbox){
+lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
         lightbox.style.display = "none";
     }
-};
+});
