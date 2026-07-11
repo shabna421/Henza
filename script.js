@@ -42,3 +42,31 @@ for(let i=1;i<=totalPhotos;i++){
     gallery.appendChild(img);
 
     }
+// ======================
+// Lightbox
+// ======================
+
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".close");
+
+document.addEventListener("click", function(e){
+
+    if(e.target.tagName === "IMG" &&
+       !e.target.classList.contains("logo")){
+
+        lightbox.style.display = "flex";
+        lightboxImg.src = e.target.src;
+    }
+
+});
+
+closeBtn.onclick = function(){
+    lightbox.style.display = "none";
+};
+
+lightbox.onclick = function(e){
+    if(e.target === lightbox){
+        lightbox.style.display = "none";
+    }
+};
