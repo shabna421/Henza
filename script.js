@@ -28,13 +28,13 @@ setInterval(showSlide,3000);
 
 const gallery = document.getElementById("galleryGrid");
 
-const totalPhotos = 20; // Change this number anytime
+const totalPhotos = 10; // Change this number anytime
 
 for(let i=1;i<=totalPhotos;i++){
 
     const img = document.createElement("img");
 
-    img.src = `photos/photo${i}.jpg`;
+    img.src = `photo${i}.jpg`;
 
     img.alt = `Photo ${i}`;
 
